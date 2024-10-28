@@ -1,0 +1,262 @@
+<odoo>
+    <template id="invoice_print_a4_temp">
+    <t t-call="web.html_container">
+        <t t-call="web.basic_layout">
+            <t t-set="company" t-value="res_company"/>
+            <t t-foreach="docs" t-as="o">
+                <div class="page" >
+                    <!-- <div class="header"> -->
+                        <div class="row">
+                            <table style="width:100%; font-family: KacstTitle; margin-top:-25px; ">
+                                <tr>
+                                    <td style="width: 30%; text-align:left; font-family:Amiri;">
+                                        <img src="./logo.png" alt="Logo" ALIGN="middle"
+                                            style=" width: 80px; height: 80px; padding-bottom:-30px; position:relative; top:30px; left:40px;"/>
+                                    </td>
+                                    <td style="width:40%; text-align:center;">
+                                        <div style="margin-right:-10px; padding: 0;">
+                                            <span style="font-size:24px; font-weight: bold; color: red">المتـــــوكـــــــل لخدمــــــات الســــــيارات</span>
+                                            <br/>
+                                            <span style="font-size:22px; font-weight: bold; line-height:1em; font-family:FreeSerif;">
+                                                El Mutwakill for Vehicles Services
+                                            </span>
+                                            <br/>
+                                            <span style="font-size:18px; font-weight: bold;  font-family: 'Amiri', serif">بيع _ شراء _ إيجار _ صيانة</span>
+                                            <br/>
+                                            <span style="font-size:20px; font-weight: bold; ">إدارة : متوكل  عبد الله أحمد  عبد المحسن</span>
+                                            <br/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 30%; text-align:right; ">
+                                        <img src="./logo.png" alt="Logo" ALIGN="middle"
+                                            style=" width: 80px; height: 80px; padding-bottom:-30px; position:relative; top:30px; right:40px;"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+<!--                     </div> -->
+                    <br/>
+                    <br/>
+                    <div class="row"
+                                 style="border-top: 5px double black; border-radius:10px;
+                                  font-family: Amiri;font-size:20px;">
+                    </div>
+                    <table style="width:100%; font-family: KacstTitle;
+                           margin-top:-25px; border-spacing: 70px; border-collapse: separate;">
+                        <td style="width:20%; text-align:center">
+                            <div class="row"
+                                 style="border-top: 5px double black; border-radius:10px;
+                                 border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                                 border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                                <span style="font-size:14px; font-weight: bold;">  Date </span><span t-field="o.invoice_date"/>
+                                <br/>
+                                <span style="font-size:14px; font-weight: bold;">GADARIF  0912616321 - 0121453565</span>
+                                <br/>
+                                <span style="font-size:14px; font-weight: bold;"> MutwaKill@elMutwaKill.com </span>
+                            </div>
+                        </td>
+                        <td style="width:10%; text-align:center">
+                            <div class="row"
+                             style="border-top: 5px double black; border-radius:10px;
+                             border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                              border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                                <span style="font-size:14px; font-weight: bold;"> Invoice </span>
+                                <br/>
+                                <span  style="font-size:14px; font-weight: bold;" t-field="o.name"/>
+                            </div>
+                        </td>
+                        <td style="width:20%; text-align:center">
+                            <div class="row"
+                             style="border-top: 5px double black; border-radius:10px;
+                             border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                              border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                                <span t-field="o.invoice_date"/><span style="font-size:14px; font-weight: bold;">  التاريخ </span>
+                                <br/>
+                                <span style="font-size:14px; font-weight: bold;"> القضارف  0911024421 - 0123446345 </span>
+                                <br/>
+                                <span style="font-size:14px; font-weight: bold;"> Omer@elMutwaKill.com </span>
+                            </div>
+                        </td>
+                    </table>
+                        <div class="col-4" t-if="o.name">
+                            <table style="width:100%; border:no-border;">
+                                    <td style="width:20%; text-align:left">
+                                        <span>Mr/s</span>
+                                    </td>
+                                    <td style="width:60%; text-align:center">
+                                        <span t-field="o.partner_id"/>
+                                        <span>.........................................................................................................................................................................................................................................................................</span>
+                                    </td>
+                                    <td style="width:20%; text-align:right">
+                                        <span>السيد</span>
+                                    </td>
+                            </table>
+                        </div>
+                <!-- Invoice Line Table -->
+                <table tyle="border-top: 0px solid black;
+                               border-collapse: collapse;
+                               margin-left: auto;
+                               margin-right: auto;
+                               width:100%;">
+                    <thead>
+                        <tr style="width:100%; border-top: 5px double black; border-radius:10px;
+                             border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                              border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                            <th style="width:40%; border: 5px double black;border-radius:10px;padding: 10px">Description</th>
+                            <th style="width:10%; border: 5px double black;border-radius:10px;padding: 10px">Quantity</th>
+                            <th style="width:20%; border: 5px double black;border-radius:10px;padding: 10px">Unit Price</th>
+                            <th style="width:10%; border: 5px double black;border-radius:10px;padding: 10px">Taxes</th>
+                            <th style="width:20%; border: 5px double black;border-radius:10px;padding: 10px">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <tr style="width:100%; border-top: 1px solid black; border-radius:10px;
+                             border-solid: 1px double black; font-family: Amiri;font-size:20px;
+                              border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                                <td style="width:40%;text-align:center; border-top: 1px solid black; border-radius:10px;
+                                       border-bottom: 1px solid black; font-family: Amiri;font-size:20px;
+                                       border-left: 5px double black; border-right: 5px double black; padding: 10px"><t t-esc="line.name"/></td>
+                                <td style="width:10%;text-align:center;  border-top: 1px solid black; border-radius:10px;
+                                       border-bottom: 1px solid black; font-family: Amiri;font-size:20px;
+                                       border-left: 5px double black; border-right: 5px double black; padding: 10px"><t t-esc="line.quantity"/></td>
+                                <td style="width:20%;text-align:center;  border-top: 1px solid black; border-radius:10px;
+                                       border-bottom: 1px solid black; font-family: Amiri;font-size:20px;
+                                       border-left: 5px double black; border-right: 5px double black; padding: 10px"><t t-esc="line.price_unit"/></td>
+                                <td style="width:10%;text-align:center;  border-top: 1px solid black; border-radius:10px;
+                                       border-bottom: 1px solid black; font-family: Amiri;font-size:20px;
+                                       border-left: 5px double black; border-right: 5px double black; padding: 10px">
+<!--                                    <t t-foreach="line.tax_ids" t-as="tax">-->
+<!--                                        <t t-esc="tax.name"/>-->
+<!--                                        <t t-if="not loop.last">, </t>-->
+<!--                                    </t>-->
+                                </td>
+                                <td style="width:20%;text-align:center; border: 1px solid black;border-collapse: collapse; padding:5px;"><t t-esc="line.price_subtotal"/></td>
+                            </tr>
+                        </t>
+                        <tr style="width:100%; border-top: 5px double black; border-radius:10px;
+                             border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                              border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                                        <td class="price"
+                                            style="width:10%;text-align:center;  border-top: 5px double black; border-radius:10px;
+                                       border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                                       border-left: 5px double black; border-right: no-border; padding: 10px">
+                                        </td>
+                                        <td class="price"
+                                            style="width:10%;text-align:center;  border-top: 5px double black; border-radius:10px;
+                                       border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                                       border-left: no-border; border-right: no-border; padding: 10px">
+                                        </td>
+                                        <td class="price"
+                                            style="width:10%;text-align:center;  border-top: 5px double black; border-radius:10px;
+                                       border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                                       border-left: no-border; border-right: no-border; padding: 10px">
+                                        </td>
+                                        <th class="description"
+                                            style="width:10%;text-align:center;  border-top: 5px double black; border-radius:10px;
+                                       border-bottom: 5px double black; font-family: Amiri;font-size:20px;
+                                       border-left: 5px double black; border-right: 5px double black; padding: 10px">
+                                            Total
+                                        </th>
+                                        <td class="price"
+                                            style="text-align:center; border: 1px solid black;border-collapse: collapse; padding:5px;">
+                                            <t t-esc="o.amount_total"/>
+                                        </td>
+                                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <!-- Payments Section -->
+                    <t t-if="o.payment_ids">
+                        <h3>Payments</h3>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Payment Date</th>
+                                    <th>Journal</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.payment_ids" t-as="payment">
+                                    <tr>
+                                        <td><t t-esc="payment.payment_date"/></td>
+                                        <td><t t-esc="payment.journal_id.name"/></td>
+                                        <td class="text-right"><t t-esc="payment.amount"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                <div class="footer text-center">
+                    <u>
+                        <b>
+                            <p style="text-align: left;font-size:12px; align-content:left; font-family:KacstOne; font-weight: none;">
+                                processed by :
+                                <t t-esc="o.env.user.name"/>
+                                <br/>
+                            </p>
+                        </b>
+                    </u>
+                    <table width="100%"
+                           style="font-size:12px; font-family: KacstOne; font-weight: none; border-top:4px solid black">
+                        <tr>
+                            <td width="50%">
+                                <div style="text-algin:left; ">
+                                    <span style="padding-left:-20px">مع أطيب التحيات</span>
+                                    <div style="padding-left:15px; text-align:right">
+                                        <!-- <span style='padding-left:-5px;font-family:FreeSerif;'>
+                                        </span> -->
+
+                                        <img t-att-src="'fleet_report/static/description/img/icon.png'"
+                                             height="60" width="60"
+                                             style="border: 1px solid #fff;border-radius: 5px;  position:relative; top:-2px; right:20px; padding-left:5px;"/>
+                                        <!-- <br/> -->
+                                        <span style="direction:rtl;">AL-SHARG CENTER FOR SCIENCE &amp; IT SOLUTION :تم التطوير بواسطة</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div style="text-align:rignt;">
+                                    <span align="rignt">الموقع : السوق الكبير - برج الثقافة</span>
+                                    <br/>
+                                    <span align="rignt" style="padding-right:-10px">تلفون … 0121453565 - 0912616321</span>
+                                    <br/>
+                                    <span align="rignt" style="padding-right:-10px">تلفون … 0911024421 - 0123446345</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+            </t>
+
+        </t>
+    </template>
+    <record id="invoice_print_a4_paper_format" model="report.paperformat">
+        <field name="name">Invoice Print Custom</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="action_invoice_report_a4" model="ir.actions.report">
+        <field name="name">Invoice Print A4</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_report.invoice_print_a4_temp</field>
+        <field name="report_file">fleet_report.invoice_print_a4_temp</field>
+        <field name="print_report_name">'Invoice No - %s' %(object.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="fleet_report.invoice_print_a4_paper_format"/>
+    </record>
+
+</odoo>

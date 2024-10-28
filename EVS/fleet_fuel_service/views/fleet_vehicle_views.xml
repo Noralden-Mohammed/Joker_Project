@@ -1,0 +1,119 @@
+<odoo>
+    <record id="fleet_vehicle_fuel_view_form" model="ir.ui.view">
+        <field name="name">fleet_vehicle_fuel_view_form</field>
+        <field name="model">fleet.vehicle.fuel</field>
+        <field name="arch" type="xml">
+            <form string="fleet_vehicle_fuel_form">
+                <header>
+                    <button name="confirm" type="object" class="oe_highlight btn-info" string="Confirm"
+                     invisible="state != 'draft'"/>
+                    <button name="done" type="object" class="oe_highlight btn-success" string="Done"
+                     invisible="state != 'confirm'"/>
+                    <button name="cancel" type="object" string="Cancel" class="oe_highlight btn-danger"
+                     invisible="state in ('cancel', 'done')"/>
+                    <button name="reset_to_draft" type="object" string="Reset to Draft"
+                     invisible="state in ('draft', 'done')" class="oe_highlight btn-warning"/>
+                    <button name="create_invoice" type="object" string="Create Bill" icon="fa-dollar"
+                     invisible="invoice_check == True" class="oe_highlight btn-warning"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vehicle_id" readonly="state != 'draft'"/>
+                            <field name="driver_id" />
+                            <field name="fuel_size" readonly="state != 'draft'"/>
+                            <field name="cost" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="odometer" readonly="state != 'draft'"/>
+                            <field name="description" readonly="state != 'draft'"/>
+                            <field name="invoice_id" invisible="invoice_check == False"/>
+                            <field name="invoice_check" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_fleet_vehicle_form_inherit_fuel" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.inherit.fuel</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Fuel Services" invisible="1">
+                    <field name="fuel_service_ids">
+                        <tree>
+                            <field name="date"/>
+                            <field name="cost"/>
+                            <field name="fuel_size"/>
+                            <field name="odometer"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_fleet_vehicle_fuel_tree" model="ir.ui.view">
+        <field name="name">Fleet Vehicle Fuel</field>
+        <field name="model">fleet.vehicle.fuel</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vehicle_id"/>
+                <field name="date"/>
+                <field name="cost"/>
+                <field name="fuel_size"/>
+                <field name="odometer"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="fleet_vehicle_fuel_action" model="ir.actions.act_window">
+        <field name="name">Fleet Vehicle Fuel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.vehicle.fuel</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="view_fleet_vehicle_form_inherit_smart_button" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.inherit.smart.button</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box" position="inside">
+                 <button name="action_open_fuel_history"
+                            type="object"
+                            string="Fuel History"
+                            icon="fa-tint">
+                    <div class="o_stat_info">
+<!--                        <span class="o_stat_text">Fuel Services</span>-->
+                        <field name="fuel_service_count" widget="statinfo" string="Fuel Services"/>
+                    </div>
+                 </button>
+		    </div>
+<!--            <xpath expr="//sheet" position="before">-->
+<!--                <button type="object" name="action_open_fuel_history" string="Fuel History" icon="fa-tint"/>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+        <!-- External action to open Facebook page -->
+        <record id="action_open_facebook" model="ir.actions.act_url">
+            <field name="name">Open Facebook</field>
+            <field name="url">https://www.iopgps.com/</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Root menu item to open Facebook page -->
+        <menuitem id="menu_open_facebook"
+                  name="GPS Page"
+                  action="action_open_facebook"
+                  sequence="10"
+                  web_icon="fleet_fuel_service,static/description/icon.png"/>
+    <menuitem id="fleet_vehicle_fuel_menu"
+                  name="Fuel"
+                  action="fleet_vehicle_fuel_action"
+                  parent="fleet.fleet_vehicles"
+                  sequence="10"/>
+</odoo>

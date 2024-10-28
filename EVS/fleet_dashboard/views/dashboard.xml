@@ -1,0 +1,61 @@
+<!--<odoo>-->
+<!--    &lt;!&ndash; Inherit Spreadsheet Dashboard View &ndash;&gt;-->
+<!--    <record id="view_spreadsheet_dashboard_form_fleet" model="ir.ui.view">-->
+<!--        <field name="name">spreadsheet.dashboard.form.fleet</field>-->
+<!--        <field name="model">spreadsheet.dashboard</field>-->
+<!--        <field name="inherit_id" ref="spreadsheet_dashboard.form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            &lt;!&ndash; Add Fleet Contract and Service Data to the Dashboard &ndash;&gt;-->
+<!--            <xpath expr="//sheet" position="inside">-->
+<!--                <group string="Fleet Data">-->
+<!--                    <group>-->
+<!--                        <field name="contract_data"/>-->
+<!--                        <field name="service_data"/>-->
+<!--                    </group>-->
+<!--                </group>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--</odoo>-->
+<odoo>
+    <data>
+        <record id="view_my_dashboard" model="ir.ui.view">
+            <field name="name">my.dashboard.view</field>
+            <field name="model">fleet.fuel.usage</field> <!-- Replace with your model -->
+            <field name="arch" type="xml">
+                <div class="o_dashboard">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>My Dashboard with Spreadsheet</h2>
+                            <div class="o_spreadsheet">
+                                <t t-call="web.external_layout">
+                                    <div class="o_spreadsheet_wrapper">
+                                        <t t-foreach="range(10)" t-as="row">
+                                            <div class="row">
+                                                <t t-foreach="range(10)" t-as="col">
+                                                    <input type="text" class="form-control" />
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="action_my_dashboard" model="ir.actions.act_window">
+            <field name="name">My Dashboard</field>odoo_
+            <field name="res_model">fleet.fuel.usage</field> <!-- Replace with your model -->
+            <field name="view_id" ref="view_my_dashboard"/>
+            <field name="view_mode">form</field>
+            <field name="target">main</field>
+        </record>
+
+
+        <menuitem id="my_dashboard_menu" name="My Dashboard" action="action_my_dashboard" parent="base.menu_dashboard"/>
+    </data>
+</odoo>
+

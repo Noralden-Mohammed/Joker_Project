@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <!-- Inherit the fleet.vehicle.log.contract form view -->
+        <record id="fleet_vehicle_log_contract_form_inherit_purchase" model="ir.ui.view">
+            <field name="name">fleet.vehicle.log.contract.form.inherit.purchase</field>
+            <field name="model">fleet.vehicle.log.contract</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+            <field name="arch" type="xml">
+                <!--  Add new button for create invoice -->
+                <xpath expr="//header" position="inside">
+                    <button name="create_invoice"
+                            string="Create Invoice"
+                            type="object"
+                            class="oe_highlight btn-warning"
+                            icon="fa-dollar"
+                            invisible="invoice_check == True"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="duration" string="Duration"/>
+                </xpath>
+                <!-- Add new fields for Purchase Order, Purchase Request, and COC -->
+                <xpath expr="//group[@col='2']" position="after">
+                    <group string="Purchase Information">
+                        <group col="1">
+                            <field name="po_number"/>
+                            <field name="pr_number"/>
+                            <field name="coc_number"/>
+                        </group>
+                        <group col="2">
+                            <field name="purchase_order" filename="file_name1" widget="binary"/>
+                            <field name="purchase_request" filename="file_name2" widget="binary"/>
+                            <field name="coc_file" filename="file_name3" widget="binary"/>
+                            <field name="invoice_id" invisible="invoice_check == False"/>
+                        </group>
+                        <field name="file_name1" invisible="1"/>
+                        <field name="file_name2" invisible="1"/>
+                        <field name="file_name3" invisible="1"/>
+                        <field name="duration"/>
+                        <field name="invoice_check" invisible="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="fleet_vehicle_contract_list_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.contract.list.inherit</field>
+            <field name="model">fleet.vehicle.log.contract</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <!-- Add new columns to the list view -->
+                <xpath expr="//tree" position="inside">
+                    <field name="ins_ref"/>
+                    <field name="duration" optional="hide"/>
+                    <field name="po_number" optional="hide"/>
+                    <field name="pr_number" optional="hide"/>
+                    <field name="coc_number" optional="hide"/>
+                </xpath>
+            </field>
+        </record>>
+    </data>
+</odoo>

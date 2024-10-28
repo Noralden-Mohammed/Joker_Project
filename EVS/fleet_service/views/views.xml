@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+    <record id="fleet_vehicle_log_services_view_form_inherit" model="ir.ui.view">
+            <field name="name">fleet_vehicle_log_services_view_form</field>
+            <field name="model">fleet.vehicle.log.services</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
+            <field name="arch" type="xml">
+                <!--  Add new button for create invoice -->
+                <xpath expr="//header" position="inside">
+                    <button name="create_invoice"
+                            string="Create Invoice"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-dollar"
+                            invisible="invoice_check == True"/>
+                </xpath>
+                <field name="vendor_id" position="after">
+                    <field name="invoice_id" invisible="invoice_check == False"/>
+                    <field name="invoice_check" invisible="1"/>
+                </field>
+            </field>
+    </record>
+  </data>
+</odoo>

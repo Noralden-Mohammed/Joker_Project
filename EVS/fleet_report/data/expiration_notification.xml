@@ -1,0 +1,29 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Scheduled action to check vehicle license expiration daily -->
+        <record id="fleet_vehicle_license_expiration_cron" model="ir.cron">
+            <field name="name">License Expiration Notification</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+            <field name="state">code</field>
+            <field name="code">model._send_license_expiration_notification()</field>
+            <field name="active">True</field>
+            <field name="interval_number">1</field> <!-- Runs daily -->
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+         <!-- Scheduled action to check for license expiration notifications daily -->
+        <record id="driver_license_expiration_notification_cron" model="ir.cron">
+            <field name="name">Driver License Expiration Notification</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model._send_license_expiration_notification()</field>
+            <field name="interval_type">days</field>
+            <field name="interval_number">1</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>
+
+
+

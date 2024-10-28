@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="print_general_report_temp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2 style="text-align:center; width:100% ">General Reports</h2>
+                    <h3 style="text-align:center; width:100%;font-family:KacstOne; padding-bottom:5px; background-color:#2e8b57;">
+                        تقرير عام
+                    </h3>
+                    <br/>
+                </div>
+                <table style="border: 1px ;width:100%;" dir="rtl">
+                    <tr>
+                        <td style="text-align:right;width:10%; margin-right:20px;font-family:KacstOne;  background-color:#ffefd5;">
+                            التاريخ من :
+                        </td>
+
+                        <td style="text-align: center ; ">
+                            <t t-if="form_data.get('date_from')">
+                                <t t-esc="form_data['date_from']"/>
+                            </t>
+                        </td>
+                        <td style="text-align:left ;color:#fff;">Date From</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right;width:25%;font-family:KacstOne;  background-color:#ffefd5;">التاريخ
+                            الى :
+                        </td>
+                        <td style="text-align:center">
+                            <t t-if="form_data.get('date_to')">
+                                <t t-esc="form_data['date_to']"/>
+                            </t>
+                        </td>
+                        <td style="text-align:left;width:25%; color:#fff;">Date to</td>
+
+                    </tr>
+                </table>
+                <br/>
+                <table style="border-bottom: 1px ;width:100%;" dir="rtl">
+                    <td style="text-align:right;font-family:KacstOne;">
+                        <span>الايرادات</span>
+                    </td>
+                    <td></td>
+                    <td style="text-align:left">
+                        <span>Income</span>
+                    </td>
+                </table>
+
+                <table style="width:100% ; " dir="rtl" class="table table-bordered">
+                    <tr style="background-color: #ffefd5; height:40px">
+                        <th style="width:20%;border-collapse: collapse;text-align:center;font-family:KacstOne;">
+                            بنك
+                        </th>
+                        <th valing="middle"
+                            style="width:20%;border-collapse: collapse;text-align:center;font-family:KacstOne;">
+                            كاش
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center;font-family:KacstOne;">
+                            المجموع
+                        </th>
+                    </tr>
+                    <tr style="height:30px">
+                        <th style="width:20%;border-collapse: collapse;text-align:center;">
+                            <span t-esc="total_income_bank"/>
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center;">
+                            <span t-esc="total_income_cash"/>
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center;">
+                            <span t-esc="total_income"/>
+                        </th>
+                    </tr>
+                </table>
+                <br/>
+                <table style="border-bottom: 1px ;width:100%;" dir="rtl">
+                    <td style="text-align:right;font-family:KacstOne;">
+                        <span>المصروفات</span>
+                    </td>
+                    <td/>
+                    <td style="text-align:left">
+                        <span>Expense</span>
+                    </td>
+                </table>
+                <table style="width:100% ; " dir="rtl" class="table table-bordered">
+                    <tr style="background-color: #ffefd5; height:40px">
+                        <th style="width:20%;border-collapse: collapse;text-align:center;font-family:KacstOne;">
+                            بنك
+                        </th>
+                        <th valing="middle"
+                            style="width:20%;border-collapse: collapse;text-align:center;font-family:KacstOne;">
+                            كاش
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center;font-family:KacstOne;">
+                            المجموع
+                        </th>
+                    </tr>
+                    <tr style="height:30px">
+                        <th style="width:20%;border-collapse: collapse;text-align:center;">
+                            <span t-esc="expense_bank"/>
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center;">
+                            <span t-esc="expense_cash"/>
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center;">
+                            <span t-esc="total_expense"/>
+                        </th>
+                    </tr>
+                </table>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <table style="border: 1px ;width:100%;" dir="rtl" class="table table-bordered">
+                    <tr style="height:30px; " class="is-subtotal text-right">
+                        <th style="width:20%;border-collapse: collapse;text-align:right;font-family:KacstOne; background-color:#2e8b57;">
+                            الصافي
+                        </th>
+                        <th style="width:20%;border-collapse: collapse;text-align:center; background-color:#ffd700;">
+                            <span t-esc="net"/>
+                        </th>
+                    </tr>
+                </table>
+            </t>
+        </t>
+
+    </template>
+
+    <record id="action_general_report_print" model="ir.actions.report">
+        <field name="name">تقرير الوضع المالي</field>
+        <field name="model">general.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hms_lab.print_general_report_temp</field>
+        <field name="report_file">hms_lab.print_general_report_temp</field>
+        <!--        <field name="binding_model_id" ref="hms_expense.model_hms_expense_vat"/>-->
+        <field name="print_report_name">'general report'</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

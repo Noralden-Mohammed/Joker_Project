@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_fleet_vehicle_form_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.inherit</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">            <!-- Insert the field before category_id -->
+            <xpath expr="//group[@col='2']" position="after">
+                 <group string="Licenses">
+                    <field name="file_name" invisible="1"/>
+                    <field name="license_number"/>
+                    <field name="start_license_date"/>
+                    <field name="end_license_date"/>
+                    <field name="license_location"/>
+                    <field name="vehicle_license" filename="file_name" widget="binary"/>
+                </group>
+            </xpath>
+           <field name="doors" position="after">
+                <label for="load_weight"/>
+                    <div class="o_row">
+                        <field name="load_weight"/><span>Kg</span>
+                    </div>
+            </field>
+            <field name="order_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="write_off_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="manager_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="next_assignation_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//page[@name='page_tax_info']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+     <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="job_id" position="after">
+                <field name="personal_card" filename="file_name" widget="binary"/>
+                <field name="file_name" invisible="1"/>
+            </field>
+        </field>
+    </record>
+    <record id="fleet_vehicle_model_view_form_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.model</field>
+        <field name="model">fleet.vehicle.model</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_form"/>
+        <field name="arch" type="xml">
+            <field name="doors" position="after">
+                 <label for="load_weight"/>
+                    <div class="o_row">
+                        <field name="load_weight"/><span>Kg</span>
+                    </div>
+            </field>
+        </field>
+    </record>
+
+        <!-- Inherit the employee form view to add the License Info page -->
+        <record id="hr_employee_form_license_info" model="ir.ui.view">
+            <field name="name">hr.employee.form.license.info</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <!-- Add a new page (tab) for License Information -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="License Information">
+                        <group>
+                            <field name="license_number"/>
+                            <field name="license_issued_date"/>
+                            <field name="license_expiry_date"/>
+                            <field name="license_type"/>
+                            <field name="license_card" filename="file_name" widget="binary"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+</odoo>

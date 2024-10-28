@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_dashboard_fleet_dashboard,fleet_dashboard.fleet_dashboard,model_fleet_dashboard_fleet_dashboard,base.group_user,1,1,1,1

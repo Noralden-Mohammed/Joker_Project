@@ -1,0 +1,78 @@
+<odoo>
+    <!-- Fleet Vehicle Tree View -->
+    <record id="view_fleet_vehicle_tree" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tree</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="vehicle_type"/>
+                <field name="model"/>
+                <field name="license_plate"/>
+                <field name="driver_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Fleet Vehicle Form View -->
+    <record id="view_fleet_vehicle_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="vehicle_type"/>
+                    <field name="model"/>
+                    <field name="license_plate"/>
+                    <field name="driver_id"/>
+                    <field name="status"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Fleet Fuel Usage Tree View -->
+    <record id="view_fleet_fuel_usage_tree" model="ir.ui.view">
+        <field name="name">fleet.fuel.usage.tree</field>
+        <field name="model">fleet.fuel.usage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vehicle_id"/>
+                <field name="fuel_amount"/>
+                <field name="fuel_cost"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Fleet Costs Tree View -->
+    <record id="view_fleet_cost_tree" model="ir.ui.view">
+        <field name="name">fleet.cost.tree</field>
+        <field name="model">fleet.cost</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vehicle_id"/>
+                <field name="maintenance_cost"/>
+                <field name="fuel_cost"/>
+                <field name="other_costs"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Fleet Services Tree View -->
+    <record id="view_fleet_service_tree" model="ir.ui.view">
+        <field name="name">fleet.service.tree</field>
+        <field name="model">fleet.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vehicle_id"/>
+                <field name="service_type"/>
+                <field name="service_date"/>
+                <field name="cost"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

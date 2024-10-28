@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_car,access_car,model_car,,1,1,1,1
+access_car_agency,access_car_agency,model_car_agency,,1,1,1,1
+access_car_brand,access_car_brand,model_car_brand,,1,1,1,1
+access_car_damaged_wizard,access_car_damaged_wizard,model_car_damaged_wizard,,1,1,1,1
+access_res,access_res,model_res,,1,1,1,1

@@ -1,0 +1,313 @@
+<odoo>
+    <template id="labtest_report_a5_temp">
+        <t t-call="web.basic_layout">
+            <t t-set="company" t-value="res_company"/>
+            <t t-foreach="docs" t-as="o">
+                <!-- <div class="header">
+                    
+                </div> -->
+                <!--            <br/>-->
+                <div class="page" style="font-family: Arial; page-break-inside: avoid; margin-top:0px">
+                    <table style="margin-top:1px; width:100%; font-family: KacstTitle; ">
+                        <tr>
+                            <td style="width: 30%; text-align:left; font-family:Amiri;">
+                                <img src="./logo.png" alt="Logo" ALIGN="middle"
+                                     style=" position:relative; top:50px; left:40px; width: 60px; height: 60px; padding-bottom:-30px;"/>
+                            </td>
+                            <td style="width:40%; text-align:center;">
+                                <div style="padding:0 0 0 5px;">
+                                    <span style="font-size:17px; position:relative; top:40px; font-weight: none; line-height:1em; font-family:FreeSerif;">
+                                        Tayba Laboratory for Medical Investigations
+                                    </span>
+                                    <br/>
+                                    <span style="font-size:17px; position:relative; top:40px; font-weight: bold; ">معمل طيبة
+                                        للتحاليل الطبية
+                                    </span>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </td>
+                            <td style="width: 30%; text-align:right; ">
+                                <div style=" padding:0 5px 0 0;">
+                                    <img src="./logo.png" alt="Logo" ALIGN="middle"
+                                         style="position:relative; top:50px; right:40px; width: 60px; height: 60px; padding-bottom:-30px;"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <div class="row"
+                         style="border-top: 5px double black; border-radius:5px;  border-bottom: 5px double black;font-family: Amiri;font-size:12px;padding:5px">
+                        <div class="col-4" t-if="o.name">
+                            <strong>Lab Test# :</strong>
+                            <span t-field="o.name"/>
+                            <br/>
+
+                            <strong>Patient :</strong>
+                            <span style="font-family:KacstOne; font-size:14px; font-weight: bold; background-color:#ffdab9;
+										nth-child(even){background-color: #f2f2f2;" t-field="o.patient"/>
+                            <br/>
+                            <table style="width:90%">
+                                <tr>
+                                    <td t-foreach="o.extra_data" t-as="data">
+                                        <strong>
+                                            <span t-field="data.data_type"/>
+                                            :
+                                        </strong>
+                                        <span t-field="data.details"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-4" t-if="o.patient">
+                            <strong>Age :</strong>
+                            <span t-field="o.age"/>
+                            <br/>
+
+                            <strong>Phone :</strong>
+                            <span t-field="o.phone"/>
+                            <br/>
+                        </div>
+                        <div class="col-4" t-if="o.patient">
+                            <strong>sex :</strong>
+                            <span t-field="o.sex"/>
+                            <br/>
+                            <strong>Analysis Date :</strong>
+                            <span t-field="o.date_analysis"/>
+                            <br/>
+                            <t t-if="o.lab_id.name">
+                                <strong>Referred By :</strong>
+                                <span t-field="o.lab_id.name"/>
+                            </t>
+                            <br/>
+                        </div>
+                    </div>
+                    <br></br>
+                    <t t-set="counter" t-value="0"/>
+                    <t t-foreach="o.lab_test" t-as="test" style="font-size:13px;">
+
+                        <div t-if="test.test_type.is_culture" style="">
+                            <h4 class="text-center"
+                                style="text-align:center; font-family: Amiri; font-weight: bold;">
+                                BACTERIOLOGY AND MYCOLOGY
+                            </h4>
+                            <br/>
+                            <br/>
+                            <h4 style="page-break-inside: avoid;">Specimen :
+                                <span class="m-0" t-field="test.specimen"
+                                      style="page-break-inside: avoid;font-weight: bold;"/>
+                                for C/S
+                            </h4>
+                            <br/>
+                            <h4 t-if="test.gramstain" style="page-break-inside: avoid;">Gramstain :
+                                <span class="m-0" t-field="test.gramstain"
+                                      style="page-break-inside: avoid;font-weight: bold;"/>
+                            </h4>
+                            <br/>
+                            <h4 t-if="test.isolated" style="page-break-inside: avoid;">Isolated suspected M.organism
+                                :
+                                <span class="m-0" t-field="test.isolated"
+                                      style="page-break-inside: avoid;font-weight: bold;"/>
+                            </h4>
+
+
+                            <br/>
+                            <b t-foreach="test.lab_test_criteria" t-as="l">
+                                <h4>
+                                    <span t-field="l.name"
+                                          style="align-content:center; font-family: Amiri;font-weight: bold;"/>
+                                    <br/>
+                                    <span t-field="l.result"/>
+                                </h4>
+                            </b>
+                        </div>
+                        <table t-if="not test.test_type.is_culture"
+                               class="table table-sm table-responsive{-sm | -md | -lg -xl}"
+                               style="page-break-inside: avoid;">
+                            <thead height="10">
+                                <tr style="padding: 200px; page-break-inside: avoid;font-weight: bold;
+										border: 1px solid black;  background-color:#ffdab9;
+										nth-child(even){background-color: #f2f2f2;">
+                                    <th t-if="test.test_type" style="page-break-inside: avoid;" class="left">
+                                        <u>
+                                            <span style="page-break-inside: avoid;">Test :</span>
+                                        </u>
+                                        <span class="m-0" t-field="test.test_type"
+                                              style="page-break-inside: avoid;"/>
+                                    </th>
+                                </tr>
+                                <tr style="padding: 8px; page-break-inside: avoid;font-weight: bold;
+										border: 1px solid black; background-color:#afeeee; font-family:C059;
+										nth-child(even){background-color: #f2f2f2;">
+                                    <th style="font-size: 12px; page-break-inside: avoid;
+				                        border: 1px solid black; " class="text-center">TESTS
+                                    </th>
+                                    <th style="font-size: 12px; page-break-inside: avoid;
+				                        border: 1px solid black;" class="text-center">RESULT
+                                    </th>
+                                    <th style="font-size: 12px; page-break-inside: avoid;
+				                        border: 1px solid black;" class="text-center">NORMAL RANGE
+                                    </th>
+                                    <th style="font-size: 12px; page-break-inside: avoid;
+				                        border: 1px solid black;" class="text-center">UNITS
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="test.lab_test_criteria" t-as="l" height="10" style="page-break-inside: avoid; padding: 4px
+				                    border: 1px solid black;
+			                  nth-child(even){background-color: #f2f2f2;">
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="l.name">
+                                        <span t-field="l.name"/>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;font-weight: bold;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="l.result">
+                                        <span t-field="l.result"/>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="not l.result">
+                                        <p></p>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid; ;font-size: 12px;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="l.normal_range">
+                                        <span t-field="l.normal_range"/>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;
+				                        border-bottom: 1px solid black;" class="text-center"
+                                        t-if="l.normal_range == ''">
+                                        <p></p>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="l.units">
+                                        <span t-field="l.units.name"/>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="not l.units.id > 0">
+                                        <p></p>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 12px;
+				                         border-bottom: 1px solid black;" class="text-center" t-if="not l.units">
+                                        <p></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-sm table-responsive{-sm | -md | -lg -xl}"
+                               style="page-break-inside: avoid;" t-if="test.extra_data">
+                            <thead height="10">
+                                <tr style="padding: 200px; page-break-inside: avoid;font-weight: bold;
+										border: 1px solid black;  background-color:#ffdab9;
+										nth-child(even){background-color: #f2f2f2;">
+                                    <th t-if="test.extra_data" style="page-break-inside: avoid;" class="center">
+                                        <u>
+                                            <strong style="page-break-inside: avoid;">Extra Info about test:</strong>
+                                        </u>
+                                    </th>
+                                </tr>
+                                <tr style="padding: 8px; page-break-inside: avoid;font-weight: bold;
+										border: 1px solid black; background-color:#afeeee; font-family:C059;
+										nth-child(even){background-color: #f2f2f2;">
+                                    <th style="font-size: 18px; page-break-inside: avoid;
+				                        border: 1px solid black; " class="text-center">Info
+                                    </th>
+                                    <th style="font-size: 18px; page-break-inside: avoid;
+				                        border: 1px solid black;" class="text-center">Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="test.extra_data" t-as="data" height="10" style="page-break-inside: avoid; padding: 4px
+				                    border: 1px solid black; th-child(even){background-color: #f2f2f2;">
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 18px;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="data.data_type">
+                                        <span t-field="data.data_type"/>
+                                    </td>
+                                    <td style="height: 10px; page-break-inside: avoid;font-size: 18px;font-weight: bold;
+				                        border-bottom: 1px solid black;" class="text-center" t-if="data.details">
+                                        <span t-field="data.details"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <u t-if="test.note">
+                            <strong style="page-break-inside: avoid;">Notes :</strong>
+                            <p style="text-align: left; align-content:left; font-family: Amiri;">
+                                <span t-field="test.note"/>
+                                <br/>
+                            </p>
+                        </u>
+                    </t>
+                </div>
+                <div class="footer text-center">
+                    <u>
+                        <b>
+                            <p style="text-align: left;font-size:12px; align-content:left; font-family:KacstOne; font-weight: none;">
+                                processed by :
+                                <t t-esc="o.processed_by.name"/>
+                                <br/>
+                            </p>
+                        </b>
+                    </u>
+                    <table width="100%"
+                           style="font-size:12px; font-family: KacstOne; font-weight: none; border-top:4px solid black">
+                        <tr>
+                            <td width="50%">
+                                <div style="text-algin:left; ">
+                                    <span style="padding-left:-20px">أطيب اﻷمنيات بعاجل الشفاء</span>
+                                    <div style="padding-left:15px; text-align:right">
+                                        <!-- <span style='padding-left:-5px;font-family:FreeSerif;'>
+                                        </span> -->
+
+                                        <img t-att-src="'hms_lab/static/description/img/Soft class.png'"
+                                             height="60" width="60"
+                                             style="border: 1px solid #fff;border-radius: 5px;  position:relative; top:-2px; right:20px; padding-left:5px;"/>
+                                        <!-- <br/> -->
+                                        <span style="direction:rtl;">Soft Class
+                                            Technology :تم التطوير بواسطة</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div style="text-align:rignt;">
+                                    <span align="rignt">الموقع : السوق الكبير - عمارة ادم الصاحب - غرب شركة زين
+                                        للاتصالات
+                                    </span>
+                                    <br/>
+                                    <span align="rignt" style="padding-right:-10px">تلفون … 0111666560</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="lab_report_a5_paper__format" model="report.paperformat">
+        <field name="name">Lab Test Custom</field>
+        <field name="default" eval="False"/>
+        <field name="format">A5</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">1</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="dpi">96</field>
+    </record>
+    <record id="action_labtest_report_a5" model="ir.actions.report">
+        <field name="name">Labtest Result Report</field>
+        <field name="model">hms.labtest.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hms_lab.labtest_report_a5_temp</field>
+        <field name="report_file">hms_lab.labtest_report_a5_temp</field>
+        <field name="print_report_name">'Labtest Result Report - %s' %(object.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="hms_lab.lab_report_a5_paper__format"/>
+    </record>
+
+</odoo>
