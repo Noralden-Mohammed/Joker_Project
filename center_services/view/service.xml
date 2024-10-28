@@ -1,0 +1,53 @@
+<odoo>
+<record id="services_tree_view" model="ir.ui.view">
+    <field name="name">Services Type</field>
+    <field name="model">services</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="ref"/>
+            <field name ="price"/>
+            <field name ="employee_feeds"/>
+        </tree>
+    </field>
+</record>
+<record id="services_form_view" model="ir.ui.view">
+    <field name="name">Services Type</field>
+    <field name="model">services</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                	<div>
+				<h1>
+					<field name="ref"/>
+				</h1>
+			</div>
+                <group>
+                         <group>
+                             <field name="name"/>
+                             <field name="code"/>
+                         </group>
+                        <group>
+                            <field name="price"/>
+                            <field name="employee_feeds"/>
+                        </group>
+                </group>
+                </sheet>
+            <div class='oe_chatter'>
+			<field name='activity_ids'/>
+			<field name='message_ids'/>
+		</div>
+        </form>
+    </field>
+</record>
+<record id="services_action" model="ir.actions.act_window">
+        <field name="name">Services Type</field>
+        <field name="res_model">services</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+
+</record>
+</odoo>
+
+
+

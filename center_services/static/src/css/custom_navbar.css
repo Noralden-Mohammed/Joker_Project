@@ -1,0 +1,18 @@
+
+.o_main_navbar {
+    background-color: green !important;
+}
+
+.o_main_navbar .o_menu_sections > li > a {
+    background-color: white !important;}
+
+a.dropdown-item o_nav_entry  {
+    background-color: black !important;
+}
+.o_main_navbar .nav-item a:hover {
+    color: green !important;
+}
+.o_login {
+    background-image: url('center_services/static/src/img/background.jpg');
+    background-size: cover;
+    }

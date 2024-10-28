@@ -1,0 +1,29 @@
+<odoo>
+	<data>
+		<record id="connection_sequence" model ="ir.sequence">
+			<field name ="name">Connections Seq</field>
+			<field name ="code">Connections_seq</field>
+			<field name ="prefix">CO</field>
+			<field name ="padding">5</field>
+		</record>
+		<record id="certificate_service_sequence" model ="ir.sequence">
+			<field name ="name">Certificate Service Seq</field>
+			<field name ="code">certificate_service_seq</field>
+			<field name ="prefix">CS</field>
+			<field name ="padding">5</field>
+		</record>
+		<record id="technical_support_sequence" model ="ir.sequence">
+			<field name ="name">Technical Support Seq</field>
+			<field name ="code">technical_support_seq</field>
+			<field name ="prefix">TS</field>
+			<field name ="padding">5</field>
+		</record>
+		<record id="device_maintenance_sequence" model ="ir.sequence">
+			<field name ="name">Device Maintenance Seq</field>
+			<field name ="code">device_maintenance_seq</field>
+			<field name ="prefix">DM</field>
+			<field name ="padding">5</field>
+		</record>
+
+	</data>
+</odoo>

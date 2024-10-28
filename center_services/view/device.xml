@@ -1,0 +1,53 @@
+<odoo>
+<record id="devices_tree_view" model="ir.ui.view">
+    <field name="name">Device Type</field>
+    <field name="model">devices</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="ref"/>
+            <field name ="maintenance_type"/>
+        </tree>
+    </field>
+</record>
+<record id="devices_form_view" model="ir.ui.view">
+    <field name="name">Device Type</field>
+    <field name="model">devices</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                	<div>
+				<h1>
+					<field name="ref"/>
+				</h1>
+                    </div>
+                <group>
+                         <group>
+                             <field name ="name"/>
+
+                                <field name="code"/>
+                         </group>
+                        <group>
+                                <field name ="maintenance_type"/>
+
+                        </group>
+                </group>
+                </sheet>
+            <div class='oe_chatter'>
+			<field name='activity_ids'/>
+			<field name='message_ids'/>
+		</div>
+        </form>
+    </field>
+</record>
+<record id="devices_action" model="ir.actions.act_window">
+        <field name="name">Devices Type</field>
+        <field name="res_model">devices</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+
+</record>
+</odoo>
+
+
+

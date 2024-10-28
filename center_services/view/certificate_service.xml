@@ -1,0 +1,60 @@
+<odoo>
+    <record id="certificate_service_view_tree" model="ir.ui.view">
+        <field name="name">certificate_service_view_tree</field>
+        <field name="model">certificate.service</field>
+        <field name="arch" type="xml">
+            <tree string="certificate_service_tree">
+                <field name="certificate_service"/>
+                <field name="certificate_type"/>
+                <field name="code"/>
+                <field name="price" widget="monetary"/>
+                <field name="cost" widget="monetary"/>
+                <field name="employee_feeds"/>
+            </tree>
+        </field>
+    </record>
+    <record id="certificate_service_view_form" model="ir.ui.view">
+        <field name="name">certificate.service_view_form</field>
+        <field name="model">certificate.service</field>
+        <field name="arch" type="xml">
+            <form string="certificate.service_form">
+                <sheet>
+                    <group>
+                       <group>
+                           <field name="certificate_service"/>
+                           <field name="code"/>
+                       </group>
+                       <group>
+                           <field name="certificate_type"/>
+                           <field name="price" widget="monetary"/>
+                           <field name="cost" widget="monetary"/>
+                           <field name="employee_feeds" />
+                       </group>
+                    </group>
+                </sheet>
+                <div class='oe_chatter'>
+                    <field name='activity_ids'/>
+                    <field name='message_ids'/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="certificate_service_search" model="ir.ui.view">
+       <field name="name">Certificate Service</field>
+       <field name="model">certificate.service</field>
+        <field name="arch" type="xml">
+            <search string="">
+                  <field name="certificate_service" string="Service Name"/>
+                  <field name="certificate_type" string="Type"/>
+                  <field name="code" string="Code"/>
+                  <field name="price" string="Price"/>
+        </search>
+       </field>
+    </record>
+    <record id="certificate_service_action" model="ir.actions.act_window">
+        <field name="name">Certificate Service</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">certificate.service</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

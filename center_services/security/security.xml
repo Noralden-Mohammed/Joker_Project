@@ -1,0 +1,45 @@
+<odoo>
+    <record id="center_services_category" model="ir.module.category">
+        <field name="name">Center Services</field>
+    </record>
+    <record id="center_services_manager_group" model="res.groups">
+        <field name="name">Center Manager</field>
+        <field name="category_id" ref="center_services.center_services_category"/>
+    </record>
+    <record id="center_services_certificate_group" model="res.groups">
+        <field name="name">Certificate Manager</field>
+        <field name="category_id" ref="center_services.center_services_category"/>
+    </record>
+    <record id="center_services_technical_group" model="res.groups">
+        <field name="name">Technical Manager</field>
+        <field name="category_id" ref="center_services.center_services_category"/>
+    </record>
+    <record id="center_services_maintenance_group" model="res.groups">
+        <field name="name">Maintenance Manager</field>
+        <field name="category_id" ref="center_services.center_services_category"/>
+    </record>
+    <record id="center_services_user_group" model="res.groups">
+        <field name="name"> Service User</field>
+        <field name="category_id" ref="center_services.center_services_category"/>
+    </record>
+    <record id="center_finance_user_group" model="res.groups">
+        <field name="name"> Finance User</field>
+        <field name="category_id" ref="center_services.center_services_category"/>
+    </record>
+<!--    <record id="requisition_request_record_rule_user_access" model="ir.rule">-->
+<!--            <field name="name">Requisition Request User Record Rule</field>-->
+<!--            <field name="model_id" ref="sstc_altwaki_project.model_requisition_request"/>-->
+<!--            <field name="domain_force">[('create_uid', '=', user.id)]</field>-->
+<!--            <field name="groups" eval="[(4, ref('sstc_altwaki_project.requisition_request_user_group'))]"/>-->
+<!--        </record>-->
+
+<!--    <record id="requisition_request_record_rule_admin_access" model="ir.rule">-->
+<!--            <field name="name">Requisition Request Admin Record Rule</field>-->
+<!--            <field name="model_id" ref="sstc_altwaki_project.model_requisition_request"/>-->
+<!--            <field name="groups" eval="[(4, ref('sstc_altwaki_project.requisition_request_manager_group'))]"/>-->
+<!--            <field name="perm_read" eval="True"/>-->
+<!--            <field name="perm_write" eval="True"/>-->
+<!--            <field name="perm_create" eval="False"/>-->
+<!--            <field name="perm_unlink" eval="False"/>-->
+<!--        </record>-->
+</odoo>

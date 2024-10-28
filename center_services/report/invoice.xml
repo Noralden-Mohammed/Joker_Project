@@ -1,0 +1,146 @@
+<odoo>
+    <template id="invoice_temp">
+        <t t-call="web.basic_layout">
+            <div style="width:100%; text-align: center;">
+
+                <t t-set="company" t-value="res_company"/>
+                <t t-set="total" t-value="0"/>
+                <t t-foreach="docs" t-as="doc">
+                    <head>
+                        <meta charset="UTF-8"/>
+                        <title>Receipt</title>
+                    </head>
+                    <body>
+                        <div style="font-family: 'Amiri';">
+                            <img src="./logo.png" alt="Logo"
+                                 style="max-width: inherit;
+                                width: inherit;
+                                text-align: center;"/>
+                            <p style="text-align: center;
+                            align-content: center;">
+                                <t t-esc="company.name"/>
+                            </p>
+                            <table style="border-top: 0px solid black;
+                               border-collapse: collapse;
+                               margin-left: auto;
+                               margin-right: auto;
+                               width:100%;">
+                                <thead>
+                                    <tr style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                        <th style="border-top: 0px solid black; border-collapse: collapse; padding:5px;">
+                                            <t t-esc="doc.name"/>
+                                        </th>
+                                        <th class="quantity">
+                                            رقم الفاتورة
+                                        </th>
+                                    </tr>
+                                    <tr style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                        <tr style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                        <th style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                            <t t-esc="doc.partner_id.name"/>
+                                        </th>
+                                        <th class="quantity">
+                                            اسم العميل
+                                        </th>
+                                    </tr>
+                                        <th style="border-top: 0px solid black; border-collapse: collapse;">
+                                            <t t-esc="doc.invoice_date"/>
+                                        </th>
+                                        <th style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                            التاريخ
+                                        </th>
+                                    </tr>                                    
+            
+                                    <tr style="border-top: 0px solid black; border-collapse: collapse; padding:5px;">
+
+                                        <th style="border: 1px solid black;border-collapse: collapse; padding:5px;background-color:#afeeee;">
+                                            القيمة
+                                        </th>
+                                        <th style="border: 1px solid black;border-collapse: collapse; padding:5px;background-color:#afeeee;">
+                                            الخدمة
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border: 1px solid black; border-radius:10px;">
+                                    <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                        <tr style="border: 1px solid black;border-collapse: collapse; padding:5px;">
+                                            <td class="price"
+                                                style="border: 1px solid black;border-collapse: collapse; padding:5px;">
+                                                <t t-esc="line.price_subtotal"/>
+                                            </td>
+
+                                            <td class="description"
+                                                style="border: 1px solid black;border-collapse: collapse; padding:5px;">
+                                                <t t-esc="line.name"/>
+                                            </td>
+                                        </tr>
+                                        <t t-set="total" t-value="total+line.price_subtotal"/>
+
+                                    </t>
+                                    <tr style="border:1px solid black;border-collapse: collapse; padding:5px;">
+                                        <td class="price"
+                                            style="border: 1px solid black;border-collapse: collapse; padding:5px;">
+                                            <t t-esc="doc.amount_total"/>
+                                        </td>
+
+                                        <th class="description"
+                                            style="border: 1px solid black;border-collapse: collapse; padding:5px;">
+                                            المجموع
+                                        </th>
+                                    </tr>
+                                </tbody>
+                                <footer style="border-bottom: 2px double black;">
+                                    <tr style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                        <td class="price"
+                                            style="border-top: 0px solid black;border-collapse: collapse; padding:5px;">
+                                            <t t-esc="doc.amount_residual"/>
+                                        </td>
+                                        <th class="description"
+                                            style="border-top: 0px solid black;border-collapse: collapse;">
+                                            المتبقي
+                                        </th>
+                                    </tr>
+                                </footer>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p style="text-align: center;align-content: center;">
+                                Printed By:
+                                <t t-esc="doc.env.user.name"/>
+                                <br/>
+                                !مركز الشرق للعلوم و التقانة
+                            </p>
+                        </div>
+                    </body>
+                </t>
+            </div>
+        </t>
+    </template>
+    <record id="invoice_paper_format" model="report.paperformat">
+        <field name="name">Lab Invoice Custom</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">200</field>
+        <field name="page_width">80</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="action_print_invoice" model="ir.actions.report">
+        <field name="name">A5 Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">center_services.invoice_temp</field>
+        <field name="report_file">center_services.invoice_temp</field>
+        <field name="print_report_name">'Invoice For - %s' %(object.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="center_services.invoice_paper_format"/>
+    </record>
+
+</odoo>

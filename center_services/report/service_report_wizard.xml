@@ -1,0 +1,46 @@
+<odoo>
+    <record id="report_request" model="ir.actions.report">
+        <field name="name">Service Report</field>
+        <field name="model">requisition.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sstc_altwaki_project.requisition_request_wizard_report_template</field>
+        <field name="report_file">sstc_altwaki_project.requisition_request_wizard_report_template</field>
+        <field name="binding_model_id" ref="sstc_altwaki_project.model_requisition_request"/>
+    </record>
+    <template id="requisition_request_wizard_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Request Report</h2>
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                        <th>Name</th>
+                                         <th>Date</th>
+                                         <th>Project</th>
+                                         <th>Department</th>
+                                         <th>Total</th>
+                                </thead>
+                                <tbody>
+
+                                    <t t-foreach="docs" t-as="request">
+                                        <t t-if="request">
+                                            <tr>
+                                                <td><t t-esc="request.name_id.name"/></td>
+                                                <td><t t-esc="request.request_date"/></td>
+                                                <td><t t-esc="request.program_id.name"/></td>
+                                                <td><t t-esc="request.department"/></td>
+                                                <td><t t-esc="request.total"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="not request">
+                                            <p>No requests found for the selected criteria.</p>
+                                        </t>
+                                    </t>
+
+                                </tbody>
+                            </table>
+                    </div>
+            </t>
+        </t>
+    </template>
+</odoo>

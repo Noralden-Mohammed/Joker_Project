@@ -1,0 +1,25 @@
+<odoo>
+<record id="res_partner_inherit" model="ir.ui.view">
+	<field name="name">Res partner Inherit</field>
+	<field name="model">res.partner</field>
+	<field name="inherit_id" ref="base.view_partner_form"/>
+	<field name="arch" type="xml">
+		<div class="oe_button_box" name="button_box" position="inside">
+			 <button name="action_service_search"
+                        type="object"
+                        string="Immediate Services"
+                        icon="fa-external-link">
+				<div class="o_stat_info">
+					<field name="services_count"/>
+					 <span class="o_stat_text">Services</span>
+				</div>
+			 </button>
+		</div>
+
+<!--            <xpath expr="//sheet/notebook/page/field[@name='category_id']" position="after">-->
+<!--                <field name="services_count" readonly="1"/>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>
+

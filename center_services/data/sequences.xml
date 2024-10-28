@@ -1,0 +1,10 @@
+<odoo>
+	<data>
+		<record id="service_sequence" model ="ir.sequence">
+			<field name ="name">Services Seq</field>
+			<field name ="code">Services_seq</field>
+			<field name ="prefix">SR</field>
+			<field name ="padding">5</field>
+		</record>
+	</data>
+</odoo>

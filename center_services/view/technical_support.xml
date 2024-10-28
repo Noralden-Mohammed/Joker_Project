@@ -1,0 +1,186 @@
+<odoo>
+<record id="technical_support_tree_view" model="ir.ui.view">
+    <field name="name">Technical Support</field>
+    <field name="model">technical.support</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name ="partner_id"/>
+            <field name ="ref"/>
+            <field name ="date"/>
+            <field name ="phone"/>
+            <field name ="email"/>
+            <field name="total_price"/>
+            <field name="activity_ids" widget="list_activity"/>
+            <field name="state"
+                       decoration-success="state == 'done'"
+                       decoration-info="state == 'draft'"
+                       decoration-danger="state == 'cancel'"
+                       decoration-warning="state == 'in_consultation'"
+                       widget="badge"/>
+            <field name="progress" widget="progressbar"/>
+        </tree>
+    </field>
+</record>
+<record id="technical_support_form_view" model="ir.ui.view">
+    <field name="name">Technical Support</field>
+    <field name="model">technical.support</field>
+    <field name="arch" type="xml">
+        <form>
+            <header>
+                <button name="button_confirm" type="object" class="oe_highlight" string="Confirm"
+                 invisible="state != 'draft'"/>
+                <button name="button_done" type="object" class="oe_highlight btn-success" string="Done"
+                 invisible="state != 'in_consultation'"/>
+                <button name="button_cancel" type="object" class="oe_highlight btn-danger" string="Cancel"
+                 invisible="state not in ('in_consultation','draft')"/>
+                <button name="button_rest_draft" type="object"  string="Rest to Draft"
+                 invisible="state not in ('in_consultation','cancel')"/>
+                <button name="create_invoice" type="object" class="oe_highlight btn-warning" string="Create Invoice"
+                 invisible="invoice_check == True" groups="center_services.center_finance_user_group"/>
+                <field name="state" widget="statusbar"/>
+            </header>
+            <sheet>
+                <div>
+                    <h1>
+                        <field name="ref"/>
+                    </h1>
+                    <h1>
+                        <field name="priority" widget="priority" class="mr-3"/>
+                    </h1>
+                </div>
+                <group>
+                         <group>
+                             <field name ="partner_id" readonly="state != 'draft'" widget="many2one_avatar_user"/>
+                             <field name="phone" widget="phone"/>
+                             <field name="email" widget="email"/>
+
+                         </group>
+                        <group>
+                                <field name ="date" readonly="state != 'draft'"/>
+                                <field name ="total_price"/>
+                                <field name ="discount" readonly="state != 'draft'"/>
+                                <field name ="description" readonly="state != 'draft'"/>
+                        </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="cancel_date" invisible="state != 'cancel'"/>
+                        <field name="reason" invisible="state != 'cancel'"/>
+                    </group>
+                    <group>
+                        <field name="invoice_check" invisible="1"/>
+                        <field name="bill_check" invisible="1"/>
+                        <field name="invoice_id" invisible="invoice_check == False"/>
+                        <field name="bill_id" invisible="invoice_check == False"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="progress" widget="progressbar" options="{'style':'width:300px; height:300px;'}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="package" string="Package Service">
+                        <field name="package_ids" readonly="state != 'draft'">
+                            <tree editable="button">
+                                <field name="connections_id"/>
+                                <field name="code"/>
+                                <field name="price"/>
+                            </tree>
+                             <form>
+                                <field name="connections_id"/>
+                                <field name="code"/>
+                                <field name="price"/>
+                            </form>
+                        </field>
+                    </page>
+                    <page name="item_line" string="Items Line">
+                        <field name="technical_ids" readonly="state != 'draft'">
+                            <tree editable="button">
+                                <field name="product_id"/>
+                                <field name="uint"/>
+                                <field name="qit"/>
+                                <field name="price"/>
+                                <field name="total"/>
+                            </tree>
+                            <form>
+                                <field name="product_id"/>
+                                <field name="uint"/>
+                                <field name="qit"/>
+                                <field name="price"/>
+                                <field name="total"/>
+                            </form>
+                        </field>
+                    </page>
+                    <page name="employee_feeds" string="Employee Feeds">
+                        <field name="employee_ids" readonly="state != 'draft'">
+                            <tree editable="button">
+                                <field name="partner_id"/>
+                                <field name="feeds"/>
+                                <field name="feeds_id"/>
+                            </tree>
+                            <form>
+                                <field name="partner_id"/>
+                                <field name="feeds"/>
+                                <field name="feeds_id"/>
+                            </form>
+                        </field>
+                        <div style="text-align:center">
+                             <h6>
+                                <labal>  Total Employees Feeds: </labal>
+                                <field name="total_feeds"/>
+                             </h6>
+                        </div>
+                    </page>
+                </notebook>
+                <div style="text-align:center">
+                    <h6>
+                    <labal>Total Package Price: </labal>
+                    <field name="total_package"/>
+                    </h6>
+                    <h6>
+                    <labal>  Total Items Price: </labal>
+                    <field name="total_line"/>
+                    </h6>
+                    <h3>
+                        <lable>Total Price: </lable>
+                        <field name="total_price"/>
+                    </h3>
+                </div>
+                </sheet>
+            <div class='oe_chatter'>
+			<field name='activity_ids'/>
+			<field name='message_ids'/>
+		</div>
+        </form>
+    </field>
+</record>
+    <record id="technical_search" model="ir.ui.view">
+        <field name="name">Technical Support</field>
+        <field name="model">technical.support</field>
+        <field name="arch" type="xml">
+
+             <search>
+                 <field name ="partner_id"/>
+                 <field name ="ref"/>
+                 <field name ="phone"/>
+                 <field name ="email"/>
+                 <field name ="state"/>
+                 <field name="description"/>
+             </search>
+
+        </field>
+    </record>
+<record id="technical_support_action" model="ir.actions.act_window">
+        <field name="name">Technical Support</field>
+        <field name="res_model">technical.support</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+
+</record>
+</odoo>
+
+
+

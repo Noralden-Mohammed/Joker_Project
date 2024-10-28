@@ -1,0 +1,151 @@
+<odoo>
+    <record id="certificate_management_view_tree" model="ir.ui.view">
+        <field name="name">certificate_management_view_tree</field>
+        <field name="model">certificate.management</field>
+        <field name="arch" type="xml">
+            <tree string="certificate_management_tree">
+                <field name="partner_id"/>
+                <field name="ref"/>
+                <field name="date"/>
+                <field name="phone"/>
+                <field name="price"/>
+                <field name="activity_ids" widget="list_activity"/>
+                <field name="state"
+                       decoration-success="state in ('done','delivery')"
+                       decoration-info="state == 'draft'"
+                       decoration-danger="state == 'cancel'"
+                       decoration-warning="state in ('send','confirm')"
+                       widget="badge"/>
+                <field name="progress" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+    <record id="certificate_management_view_form" model="ir.ui.view">
+        <field name="name">certificate_management_view_form</field>
+        <field name="model">certificate.management</field>
+        <field name="arch" type="xml">
+            <form string="certificate_management_form">
+                <header>
+                     <button name="button_confirm" type="object" class="oe_highlight" string="Confirm"
+                     invisible="state != 'draft'"/>
+                    <button name="button_send" type="object" class="oe_highlight" string="Send"
+                     invisible="state != 'confirm'"/>
+                    <button name="button_done" type="object" class="oe_highlight btn-success" string="Done"
+                     invisible="state != 'send'"/>
+                    <button name="button_delivery" type="object" class="oe_highlight btn-success" string="Delivery"
+                     invisible="state != 'done'"/>
+                    <button name="button_cancel" type="object" class="oe_highlight btn-danger" string="Cancel"
+                     invisible="state not in ('draft', 'send')"/>
+                    <button name="button_rest_to_draft" type="object" class="oe_highlight" string="Rest To Draft"
+                     invisible="state not in ('send', 'cancel')"/>
+                    <button name="create_invoice" type="object" class="oe_highlight btn-warning" string="Create Invoice"
+                     invisible="invoice_check == True" groups="center_services.center_finance_user_group"/>
+<!--                    <button name="create_bill" type="object" class="oe_highlight btn-warning" string="Create Bill"-->
+<!--                     invisible="bill_check == True"/>-->
+<!--                    <button name="create_employee_feeds" type="object" class="oe_highlight btn-warning" string="Create Employee Feeds"-->
+<!--                     invisible="feeds_check == True"/>-->
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                     <div>
+                         <h1>
+                             <field name="ref"/>
+                         </h1>
+                            <h1>
+                                <field name="priority" widget="priority" class="mr-3"/>
+                            </h1>
+                        </div>
+                    <group>
+                       <group>
+                           <field name="partner_id" readonly="state != 'draft'" widget="many2one_avatar_user"/>
+                           <field name="phone" widget="phone"/>
+                           <field name="email" widget="email"/>
+                       </group>
+                       <group>
+                           <field name="date" readonly="state != 'draft'"/>
+                           <field name="employee_feeds" widget="monetary"/>
+                           <field name="discount" widget="monetary" readonly="state != 'draft'"/>
+                           <field name="invoice_check" invisible="1"/>
+                           <field name="bill_check" invisible="1"/>
+                           <field name="feeds_check" invisible="1"/>
+                           <field name="employee_user" invisible="1"/>
+                       </group>
+                        <group>
+                            <field name="employee_user" string="Assigned to" widget="many2one_avatar_user"
+                                   readonly="state != 'draft'"/>
+                            <field name="cancel_date" invisible="state != 'cancel'"/>
+                            <field name="reason" invisible="state != 'cancel'"/>
+                            <field name="invoice_id" invisible="invoice_check == False"/>
+                            <field name="bill_id" invisible="bill_check == False"/>
+                            <field name="feeds_id" invisible="feeds_check == False"/>
+                        </group>
+                        <group>
+                            <field name="progress" widget="gauge" options="{'style':'width:100px; height:100px;'}"/>
+                        </group>
+                    </group>
+                    <dive style="text-align:center">
+                    </dive>
+                    <notebook>
+                        <page string='Certificate Service' name='certificate_service'>
+                            <field name="certificate_line" readonly="state != 'draft'">
+                                <tree editable="bottom">
+                                    <field name="service_id"/>
+                                    <field name="service_type"/>
+                                    <field name="price" widget="monetary"/>
+                                    <field name="feeds" string="Employee Feeds %"/>
+                                    <field name="certificate_no" invisible="service_type != 'documentation'"/>
+                                    <field name="siting_number" invisible="service_type != 'extract'"/>
+                                </tree>
+                                <form>
+                                    <field name="service_id"/>
+                                    <field name="service_type"/>
+                                    <field name="price" widget="monetary"/>
+                                    <field name="feeds" string="Employee Feeds %"/>
+                                    <field name="certificate_no" invisible="service_type != 'documentation'"/>
+                                    <field name="siting_number" invisible="service_type != 'extract'"/>
+                                </form>
+                            </field>
+                            <div style="text-align:center">
+                                <h3>
+                                    <labale>Total Price : </labale>
+                                    <field name="price" widget="monetary"/>
+                                </h3>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class='oe_chatter'>
+                    <field name='activity_ids'/>
+                    <field name='message_ids'/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="certificate_management_search_view" model="ir.ui.view">
+       <field name="name">Certificate Management Search</field>
+       <field name="model">certificate.management</field>
+        <field name="arch" type="xml">
+            <search string="">
+              <field name="partner_id" string="Partner"/>
+              <field name="phone" string="Phone"/>
+              <field name="date" string="Date"/>
+              <field name="email" string="email"/>
+              <field name="price" string="Price"/>
+              <field name="state" string="State"/>
+              <field name="ref" string="Reference"/>
+                <searchpanel>
+<!--                    <field name="partner_id" icon="fa-users" select="multi" string="Customer" enable_counters="1"/>-->
+<!--                    <field name="certificate_line" icon="fa-users" select="multi" string="Customer" enable_counters="1"/>-->
+                    <field name="priority" icon="fa-star" select="multi" string="Priority" enable_counters="1"/>
+                    <field name="state" icon="fa-check" select="multi" string="State" enable_counters="1"/>
+                </searchpanel>
+            </search>
+       </field>
+    </record>
+    <record id="certificate_management_action" model="ir.actions.act_window">
+        <field name="name">Certificate Management</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">certificate.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <record id="account_move_form" model="ir.ui.view">
+        <field name="name">account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_invoice_sent']" position="after">
+                <button name="print_invoice_temp" type="object" string="Print A5" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

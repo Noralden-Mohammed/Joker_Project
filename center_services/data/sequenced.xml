@@ -1,0 +1,10 @@
+<odoo>
+	<data>
+		<record id="device_sequence" model ="ir.sequence">
+			<field name ="name">Devices Seq</field>
+			<field name ="code">Devices_seq</field>
+			<field name ="prefix">DV</field>
+			<field name ="padding">5</field>
+		</record>
+	</data>
+</odoo>

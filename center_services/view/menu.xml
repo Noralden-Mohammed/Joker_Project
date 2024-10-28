@@ -1,0 +1,89 @@
+<odoo>
+	<menuitem
+	id ="center_services_menu_root"
+	name ="Center Services"
+	web_icon="center_services,static/description/icon2.png"
+	groups="center_services.center_services_technical_group,center_services.center_services_manager_group,center_services.center_services_user_group,center_services.center_finance_user_group,center_services.center_services_maintenance_group,center_services.center_services_certificate_group,center_services.center_finance_user_group"
+	/>
+	<menuitem
+        id ="immediate_services_menu"
+        name ="Immediate Services"
+		action= "immediate_services_action"
+	    parent="center_services_menu_root"
+		sequence="1"
+		groups="center_services.center_services_user_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+        />
+	<menuitem
+        id ="device_maintenance_menu"
+        name ="Device Maintenance"
+		action= "device_maintenance_action"
+	    parent="center_services_menu_root"
+		sequence="2"
+		groups="center_services.center_services_maintenance_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+        />
+	<menuitem
+        id ="technical_support_menu"
+        name ="Technical Services &amp; Support"
+		action="technical_support_action"
+	    parent="center_services_menu_root"
+		sequence="3"
+		groups="center_services.center_services_technical_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+        />
+	<menuitem
+        id ="Configuration_menu"
+        name ="Configration"
+		parent="center_services_menu_root"
+		groups="center_services.center_services_technical_group,center_services.center_services_manager_group,center_services.center_services_user_group,center_services.center_finance_user_group,center_services.center_services_maintenance_group,center_services.center_services_certificate_group,center_services.center_finance_user_group"
+		/>
+		<menuitem
+        id ="services"
+        name ="Services Type"
+		action= "services_action"
+	    parent="Configuration_menu"
+		groups="center_services.center_services_user_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+        />
+		<menuitem
+        id ="devices"
+        name ="Maintenance"
+		action= "devices_action"
+	    parent="Configuration_menu"
+		groups="center_services.center_services_manager_group"
+        />
+	<menuitem
+        id ="connections"
+        name ="Technical Services"
+		action="connections_action"
+	    parent="Configuration_menu"
+		sequence="5"
+		groups="center_services.center_services_technical_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+	/>
+	<menuitem
+        id ="certificate_management_menu"
+        name ="Certificate Management"
+		action="certificate_management_action"
+	    parent="center_services_menu_root"
+		sequence="4"
+		groups="center_services.center_services_certificate_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+		/>
+	<menuitem
+        id ="certificate_service_menu"
+        name ="Certificate Service"
+		action="certificate_service_action"
+	    parent="Configuration_menu"
+		groups="center_services.center_services_certificate_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+        />
+	<menuitem
+		id="service_report_menu"
+		name="Reporting"
+		parent="center_services_menu_root"
+		sequence="11"
+		groups="center_services.center_services_certificate_group,center_services.center_services_manager_group,center_services.center_finance_user_group"
+		/>
+	<menuitem
+		id="service_report"
+		name="Service Report"
+		parent="service_report_menu"
+		sequence="11"
+		action="service_report_action"
+		/>
+</odoo>
